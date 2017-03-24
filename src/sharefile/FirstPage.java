@@ -110,24 +110,32 @@ public class FirstPage extends javax.swing.JFrame {
 
     private void SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendActionPerformed
         // TODO add your handling code here:
-        Send ob = new Send();
-        ob.setVisible(true);
+        Thread t=new Thread(new CallSend(this));
+        t.start();
+        //String[] args = {};
+        //ob.main(args);
+        //ob.setVisible(true);
         this.setVisible(false);
                
     }//GEN-LAST:event_SendActionPerformed
 
     private void RecieveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecieveActionPerformed
         // TODO add your handling code here:
-        Recieve ob = new Recieve();
-        ob.setVisible(true);
+        Thread t=new Thread(new CallReceive());
+        t.start();
+        
         this.setVisible(false);
     }//GEN-LAST:event_RecieveActionPerformed
 
     private void View_HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_HistoryActionPerformed
         // TODO add your handling code here:
-        HistoryPage h = new HistoryPage();
+        hist h = new hist();
+        //h.setVisible(true);
+        //this.setVisible(true);
+        String []args={};
+        h.main(args);
+         
         h.setVisible(true);
-        this.setVisible(true);
     }//GEN-LAST:event_View_HistoryActionPerformed
 
     /**

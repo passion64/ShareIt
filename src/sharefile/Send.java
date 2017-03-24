@@ -31,10 +31,15 @@ public class Send extends javax.swing.JFrame {
     static Socket fileSock;
     static DataInputStream din;
     static DataOutputStream dout;
+    FirstPage fp;
     public Send() {
         initComponents();
+        
     }
-
+    public Send(FirstPage ob) {
+        initComponents();
+        fp=ob;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +51,7 @@ public class Send extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         Receivers = new javax.swing.JTable();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,24 +76,46 @@ public class Send extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Receivers);
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(115, 115, 115)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(backButton)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 80, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backButton)
+                        .addGap(85, 85, 85))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+       // this.dispose();
+        //fp.setVisible(true);
+        
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,10 +228,11 @@ public class Send extends javax.swing.JFrame {
                   JTable target = (JTable)me.getSource();
                   int row = target.getSelectedRow();
  
+                  String un = userList[row][0];
                   String ip = userList[row][1];
                   System.out.println("Table select"+ip);
                   
-                  BrowseFile ob=new BrowseFile(ip);
+                  BrowseFile ob=new BrowseFile(ip,un);
                   ob.setVisible(true);
                   
                   
@@ -220,7 +249,7 @@ public class Send extends javax.swing.JFrame {
             
             System.out.println(partialsubnet);
             int ind = 0;
-            for(int j=157;j<=255;j++){
+            for(int j=205;j<=255;j++){
             for (int i = 1; i < 255; i++)
         {
             String host = partialsubnet + "."  +j+"."+ i;
@@ -285,6 +314,7 @@ public class Send extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JTable Receivers;
+    private javax.swing.JButton backButton;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

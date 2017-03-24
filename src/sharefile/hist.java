@@ -25,9 +25,12 @@ public class hist extends javax.swing.JFrame {
      */
     static Connection con;
     static Statement stmt;
+    static DefaultTableModel t,t1;
     
     public hist() {
         initComponents();
+       // String []args={};
+       // this.main(args);
     }
 
     /**
@@ -170,7 +173,11 @@ public class hist extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new hist().setVisible(true);
+              //  new hist().setVisible(true);
+                /* t=(DefaultTableModel)sentTable.getModel();
+        t.setRowCount(0);
+        t1=(DefaultTableModel)recTable.getModel();
+        t1.setRowCount(0);*/
             }
         });
         
@@ -180,11 +187,8 @@ public class hist extends javax.swing.JFrame {
         //st.setRowCount(0);
         //rt=(DefaultTableModel)rectable.getModel();
         //rt.setRowCount(0);
-      /*  DefaultTableModel t=(DefaultTableModel)sentTable.getModel();
-        t.setRowCount(0);
-        DefaultTableModel t1=(DefaultTableModel)recTable.getModel();
-        t1.setRowCount(0);
-        */jdbc j=new jdbc();
+        
+        jdbc j=new jdbc();
         try
         {
          
@@ -194,6 +198,10 @@ public class hist extends javax.swing.JFrame {
             ResultSet[] rs=new ResultSet[50];
             j.search(sql, rs);
                 int count=0;
+            t=(DefaultTableModel)sentTable.getModel();
+        t.setRowCount(0);
+       t1=(DefaultTableModel)recTable.getModel();
+        t1.setRowCount(0);
             while(rs[0].next())
             {
                 String rec=rs[0].getString("rec_name");
@@ -202,7 +210,7 @@ public class hist extends javax.swing.JFrame {
                 String time=rs[0].getString("date");
                 
                 System.out.println(rec+name+type+time);
-               // t.addRow(new String[]{});
+                t.addRow(new String[]{});
                 sentTable.getModel().setValueAt(rec, count, 0);
                 sentTable.getModel().setValueAt(name, count, 1);
                 sentTable.getModel().setValueAt(type, count, 2);
@@ -221,6 +229,7 @@ public class hist extends javax.swing.JFrame {
                 count=0;
             while(rs1[0].next())
             {
+                t1.addRow(new String[]{});
                 String send=rs1[0].getString("send_name");
                 String name=rs1[0].getString("name");
                 String type=rs1[0].getString("type");

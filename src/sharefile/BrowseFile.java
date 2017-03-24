@@ -18,14 +18,17 @@ public class BrowseFile extends javax.swing.JFrame {
      * Creates new form BrowseFile
      */
     String ip;
+    String recname;
     String path;
     
     public BrowseFile() {
         initComponents();
     }
-    public BrowseFile(String i) {
+    public BrowseFile(String i,String u) {
         initComponents();
         ip=i;
+        recname=u;
+                
     }
 
     /**
@@ -97,7 +100,7 @@ public class BrowseFile extends javax.swing.JFrame {
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         // TODO add your handling code here:
-        Thread t=new Thread(new SendFile(ip,path));
+        Thread t=new Thread(new SendFile(ip,path,recname));
         t.start();
     }//GEN-LAST:event_sendButtonActionPerformed
 
