@@ -8,10 +8,12 @@ import java.net.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sharefile.jdbc;
 /**
  *
  * @author JUHI AGRAWAL
  */
+
 public class SendFile extends Thread {
     
     Socket sock;
@@ -47,6 +49,8 @@ public class SendFile extends Thread {
 
             finp.close();   
         
+           // jdbc j =new jdbc();
+           // String query="Insert into "
         
         
         }

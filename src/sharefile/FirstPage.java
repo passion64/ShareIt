@@ -14,10 +14,19 @@ public class FirstPage extends javax.swing.JFrame {
     /**
      * Creates new form FirstPage
      */
+    
+    String username="";
+    
     public FirstPage() {
         initComponents();
+        usermssg.setText("Hello");
     }
 
+    public FirstPage(String uname) {
+        initComponents();
+        username=uname;
+        usermssg.setText("Hello, "+username);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +38,9 @@ public class FirstPage extends javax.swing.JFrame {
 
         Send = new javax.swing.JButton();
         Recieve = new javax.swing.JButton();
+        View_History = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        usermssg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +58,15 @@ public class FirstPage extends javax.swing.JFrame {
             }
         });
 
+        View_History.setText("View History");
+        View_History.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View_HistoryActionPerformed(evt);
+            }
+        });
+
+        usermssg.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,15 +77,32 @@ public class FirstPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addComponent(Recieve)
                 .addGap(70, 70, 70))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(View_History))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usermssg)
+                            .addComponent(jLabel1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usermssg)
+                .addGap(18, 18, 18)
+                .addComponent(View_History)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Send)
                     .addComponent(Recieve))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +122,13 @@ public class FirstPage extends javax.swing.JFrame {
         ob.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_RecieveActionPerformed
+
+    private void View_HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_HistoryActionPerformed
+        // TODO add your handling code here:
+        HistoryPage h = new HistoryPage();
+        h.setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_View_HistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,5 +168,8 @@ public class FirstPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Recieve;
     private javax.swing.JButton Send;
+    private javax.swing.JButton View_History;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel usermssg;
     // End of variables declaration//GEN-END:variables
 }

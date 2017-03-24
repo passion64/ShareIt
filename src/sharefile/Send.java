@@ -10,9 +10,11 @@ import java.awt.event.MouseEvent;
 import java.net.*;
 import java.io.*;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import static sharefile.RecieveConnection.clientsocket;
+
 
 /**
  *
@@ -26,6 +28,7 @@ public class Send extends javax.swing.JFrame {
     static String ip;
     static int subnet;
     static Socket sock;
+    static Socket fileSock;
     static DataInputStream din;
     static DataOutputStream dout;
     public Send() {
@@ -188,7 +191,7 @@ public class Send extends javax.swing.JFrame {
         String [][] userList =new String[20][2];
         //add listener on list
         
-        /*Receivers.addMouseListener(new MouseAdapter(){
+        Receivers.addMouseListener(new MouseAdapter(){
             
          public void mouseClicked(MouseEvent me)
          {
@@ -197,7 +200,11 @@ public class Send extends javax.swing.JFrame {
                   JTable target = (JTable)me.getSource();
                   int row = target.getSelectedRow();
  
-                  String ip = (String) Receivers.getValueAt(row, 1);
+                  String ip = userList[row][1];
+                  System.out.println("Table select"+ip);
+                  
+                  BrowseFile ob=new BrowseFile(ip);
+                  ob.setVisible(true);
                   
                   
               }
@@ -207,40 +214,35 @@ public class Send extends javax.swing.JFrame {
         
    
     
-    
-    
-    
-    
-    
-    });
-        */
-        
-        
-        
-        
-        
+    });  
             String partialsubnet = ip.substring(0, ip.lastIndexOf('.'));
             partialsubnet = partialsubnet.substring(0,partialsubnet.lastIndexOf('.'));
             
             System.out.println(partialsubnet);
             int ind = 0;
-            for(int j=118;j<=255;j++){
+            for(int j=157;j<=255;j++){
             for (int i = 1; i < 255; i++)
         {
             String host = partialsubnet + "."  +j+"."+ i;
           
             try{
-            t.addRow(new String[]{});      
+                
             sock = new Socket();
-            sock.connect(new InetSocketAddress(host,4444),1);
+            sock.connect(new InetSocketAddress(host,4444),50);
             
             System.out.println("socket created"+ host);
-            
-            dout = new DataOutputStream(clientsocket.getOutputStream());
+            t.addRow(new String[]{});  
+            dout = new DataOutputStream(sock.getOutputStream());
            dout.writeUTF("accept conn");
            dout.flush();
+           String str;
             din = new DataInputStream(sock.getInputStream());
-            String str=(String)din.readUTF();
+           while(true){
+               if(din.available()>0){
+                    str=(String)din.readUTF();
+                    break;
+               }
+           }
             System.out.println("recieved name is "+ str);
             userList[ind][0]=str;
             userList[ind][1]=host;
@@ -248,10 +250,11 @@ public class Send extends javax.swing.JFrame {
        
            
             }
-            
+            catch(SocketTimeoutException se){}
+            catch(SocketException se){}
             catch(Exception e)
         {
-            
+            e.printStackTrace();
         }
             finally{
                 try{
